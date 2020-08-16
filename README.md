@@ -7,8 +7,8 @@ This is a "get you started" sort of package that demonstrates how to accomplish 
 ## Requirements:
 - A physical Oculus Quest
 - Unity 2019.4.8+
-- Normcore 2.0.0 preview 15 (Included in this project)
-- Oculus Integration 19.1.0 (Asset Store SDK) (Included in this project)
+- A Normcore account
+- Oculus Integration 19.1.0 (Asset Store SDK -- Included in this project)
 
 ## Installing and Running...
 
@@ -16,17 +16,14 @@ This is a "get you started" sort of package that demonstrates how to accomplish 
 1. Clone this git repository
 1. Open the resulting folder in Unity
 1. Navigate to `/Assets/Normal/Internal/Resources/` and view the added `NormcoreAppSettings` file in the Unity inspector. You will need to add your own app key to this, which you can obtain from [NormalVR](http://NormalVR.com) (free).
-1. Plug in an Oculus Quest. Make sure you can see your hands are working in the Quest lobby, then activate "Link Mode".
+1. Plug in an Oculus Quest. Make sure you can see your hands are working in the Quest lobby, then activate "Link Mode". Once link mode is active your hands will stop working in the lobby.
 1. Open this scene in Unity: `/Assets/QuestHandsForNormcore/Samples/Sample`
-1. Hit play. If you did everything correctly, you shouldn't see any errors or warnings in the console, but your hands won't show up. (Hands only work on device builds, not via link cable)
+1. Hit play. If you did everything correctly, you shouldn't see any errors or warnings in the console, and you should see your hands in the HMD.
 1. Click "build and run" with Android as your target device. Once this completes your device should be online with hands showing. Connect with yet another device for online hand extravaganzas.
 
 This project is configured so that your local avatar (the "true" representation by Oculus) is shown as grey hands, and your remote (online) avatar is showcased with pink hands.
 
 If you see your grey hands inverted and fingers not animating properly in the editor - this is a known problem, I'm not sure what the source is. The data seems valid in OVR (pink hands show up fine)... The current workaround is to make a build and push it to your device.
-
-### Release Download:
-1. todo!
 
 ## Credits
 
