@@ -671,7 +671,8 @@ PlayerSettings:
     1: NORMCORE
     7: NORMCORE
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Android: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
