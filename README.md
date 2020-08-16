@@ -30,7 +30,8 @@ If you see your grey hands inverted and fingers not animating properly in the ed
 
 ### Release Download:
 If you already have all the required software installed in your own project, you can just grab the unique files from the Releases page here on GitHub. If you go this route you'll have to hook things up yourself, though our example scene is still included. If your Normcore and Oculus SDK versions are correct it should "just work."
-(Latest Release)[https://github.com/absurd-joy/Quest-hands-for-Normcore/releases/latest]
+
+[Latest Release](https://github.com/absurd-joy/Quest-hands-for-Normcore/releases/latest)
 
 ## Credits
 
