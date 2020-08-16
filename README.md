@@ -35,4 +35,4 @@ Inspired by the GitHub project [SpeakGeek-Normcore-Quest-Hand-Tracking](https://
 
 ### Special thanks:
 - The entire Normal team for their networking tool. It's _too_ easy to use.
-- Oculus for getting hand tracking working at such a high quality.
+- Oculus for getting hand tracking working at such a high quality despite the device not being built with fancy sensors.
