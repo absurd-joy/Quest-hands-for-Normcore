@@ -413,12 +413,15 @@ public class LocomotionTeleport : MonoBehaviour
 
 	/// <summary>
 	/// Start the state machine coroutines.
-	/// Note that Unity will shut down the coroutines when this component is disabled.
 	/// </summary>
 	public virtual void OnEnable ()
 	{
 		CurrentState = States.Ready;
 		StartCoroutine(ReadyStateCoroutine());
+	}
+	public virtual void OnDisable ()
+	{
+		StopAllCoroutines();
 	}
 
 	/// <summary>
