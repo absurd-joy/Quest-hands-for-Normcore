@@ -33,6 +33,10 @@ If you already have all the required software installed in your own project, you
 
 [Latest Release](https://github.com/absurd-joy/Quest-hands-for-Normcore/releases/latest)
 
+## Known Issues
+
+Currently this Works(tm) but has a handful of minor annoyances/issues. Check them out on the [Issues Page](https://github.com/absurd-joy/Quest-hands-for-Normcore/issues) (and feel free to comment, submit fixes, or suggest new ways of doing things!)
+
 ## Credits
 
 This project was written by me, Andy Moore for absurd:joy. you can chat with me at [andy@absurdjoy.com](mailto:andy@abusrdjoy.com)!
