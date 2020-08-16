@@ -18,8 +18,8 @@ It's much easier to test if you also have an Oculus Link Cable to run your HMD f
 1. Clone this git repository
 1. Open the resulting folder in Unity
 1. Navigate to `/Assets/Normal/Internal/Resources/` and view the added `NormcoreAppSettings` file in the Unity inspector. You will need to add your own app key to this, which you can obtain from [NormalVR](http://NormalVR.com) (free).
-1. Plug in an Oculus Quest.
-1. (Optional, for testing:) Using a link cable, make sure you can see your hands are working in the Quest lobby, then activate "Link Mode". Once link mode is active your hands will stop working in the lobby.
+1. Plug in an Oculus Quest and make sure you can see your hands in the Quest lobby. (You might have to enable them in settings)
+1. (Optional, for testing:) If using a link cable, then activate "Link Mode". Once link mode is active your hands will stop working in the lobby.
 1. (Optional, for testing:) Open this scene in Unity: `/Assets/QuestHandsForNormcore/Samples/Sample`
 1. (Optional, for testing:) Hit play. If you did everything correctly, you shouldn't see any errors or warnings in the console, and you should see your hands in the HMD.
 1. Click "build and run" with Android as your target device. Once this completes your device should be online with hands showing. Connect with yet another device for online hand extravaganzas.
