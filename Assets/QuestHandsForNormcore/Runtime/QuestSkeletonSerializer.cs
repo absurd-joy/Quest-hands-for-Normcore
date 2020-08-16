@@ -30,7 +30,10 @@ namespace absurdjoy
         private OVRCustomSkeleton ovrSkeleton;
         private IOVRSkeletonDataProvider ovrSkeletonDataProvider;
 
+        // outgoing data cache
         private StringBuilder stringBuilder;
+        // incoming data cache
+        private string[] incomingDataArray;
 
         private bool isInitialized = false;
 
@@ -149,7 +152,12 @@ namespace absurdjoy
                 {
                     allBones[i].transform.localRotation = data.BoneRotations[i].FromFlippedZQuatf();
 
-                    stringBuilder.Append(allBones[i].transform.localEulerAngles.x + "|" + allBones[i].transform.localEulerAngles.y + "|" + allBones[i].transform.localEulerAngles.z + "|");
+                    stringBuilder.Append(allBones[i].transform.localEulerAngles.x);
+                    stringBuilder.Append("|");
+                    stringBuilder.Append(allBones[i].transform.localEulerAngles.y);
+                    stringBuilder.Append("|");
+                    stringBuilder.Append(allBones[i].transform.localEulerAngles.z);
+                    stringBuilder.Append("|");
                 }
             }
 
@@ -167,16 +175,16 @@ namespace absurdjoy
                 return;
             }
 
-            string[] dataArray = netHandData.Split('|');
+            incomingDataArray = netHandData.Split('|');
 
-            if (dataArray[0] == "0")
+            if (incomingDataArray[0] == "0")
             {
                 // Hand was turned off.
                 skinnedMeshRenderer.enabled = false;
 
                 return;
             }
-            else if (dataArray[0] == "1")
+            else if (incomingDataArray[0] == "1")
             {
                 // Hand was turned on.
                 skinnedMeshRenderer.enabled = true;
@@ -188,9 +196,9 @@ namespace absurdjoy
                 int tmpBoneCount = i * 3;
 
                 allBones[i].transform.localEulerAngles = new Vector3(
-                    float.Parse(dataArray[startIndex + tmpBoneCount], CultureInfo.InvariantCulture),
-                    float.Parse(dataArray[startIndex + 1 + tmpBoneCount], CultureInfo.InvariantCulture), 
-                    float.Parse(dataArray[startIndex + 2 + tmpBoneCount], CultureInfo.InvariantCulture));
+                    float.Parse(incomingDataArray[startIndex + tmpBoneCount], CultureInfo.InvariantCulture),
+                    float.Parse(incomingDataArray[startIndex + 1 + tmpBoneCount], CultureInfo.InvariantCulture), 
+                    float.Parse(incomingDataArray[startIndex + 2 + tmpBoneCount], CultureInfo.InvariantCulture));
             }
         }
 
