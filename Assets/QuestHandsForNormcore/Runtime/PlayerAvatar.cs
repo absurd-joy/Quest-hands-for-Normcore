@@ -21,13 +21,19 @@ namespace absurdjoy
             leftHand.AssignSourceTransform(localLeftHand, true);
             rightHand.AssignSourceTransform(localRightHand, true);
 
-            leftHand.GetComponent<IAssignSkeleton>().AssignLocalSkeleton(localLeftHand.GetComponentInChildren<OVRSkeleton.IOVRSkeletonDataProvider>());
-            rightHand.GetComponent<IAssignSkeleton>().AssignLocalSkeleton(localRightHand.GetComponentInChildren<OVRSkeleton.IOVRSkeletonDataProvider>());
+            foreach (var assignable in leftHand.GetComponents<IAssignSkeleton>())
+            {
+                assignable.AssignLocalSkeleton(localLeftHand.GetComponentInChildren<OVRSkeleton>());
+            }
+            foreach (var assignable in rightHand.GetComponents<IAssignSkeleton>())
+            {
+                assignable.AssignLocalSkeleton(localRightHand.GetComponentInChildren<OVRSkeleton>());
+            }
         }
 
         private void RequestOwnershipRecursive(Transform target)
         {
-            var rtt = GetComponent<RealtimeTransform>();
+            var rtt = target.GetComponent<RealtimeTransform>();
             if (rtt != null)
             {
                 rtt.RequestOwnership();

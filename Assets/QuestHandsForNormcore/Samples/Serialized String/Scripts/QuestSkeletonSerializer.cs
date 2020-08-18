@@ -15,13 +15,6 @@ namespace absurdjoy
 {
     public class QuestSkeletonSerializer : RealtimeComponent<GenericStringModel>, IAssignSkeleton
     {
-        // TODO: Implement this.
-        // [Tooltip("If true, will disable the visualization of your local hand once the networked hand is in place.")]
-        // public bool disableLocalVisualization = true;
-        
-        [Tooltip("The root bone structure within this prefab.")]
-        public Transform boneRoot;
-
         private SkinnedMeshRenderer skinnedMeshRenderer;
         private List<Transform> allBones = new List<Transform>();
 
@@ -31,8 +24,6 @@ namespace absurdjoy
         private StringBuilder stringBuilder;
         // incoming data cache
         private string[] incomingDataArray;
-
-        private bool isInitialized = false;
 
         protected override void OnRealtimeModelReplaced(GenericStringModel previousModel, GenericStringModel currentModel)
         {
@@ -82,9 +73,9 @@ namespace absurdjoy
         /// <summary>
         /// (only called on locally controlled avatars) Assign a skeleton to this script to harvest data from.  
         /// </summary>
-        public void AssignLocalSkeleton(IOVRSkeletonDataProvider ovrSkeletonDataProvider)
+        public void AssignLocalSkeleton(OVRSkeleton ovrSkeleton)
         {
-            this.ovrSkeletonDataProvider = ovrSkeletonDataProvider;
+            this.ovrSkeletonDataProvider = ovrSkeleton.GetComponent<IOVRSkeletonDataProvider>();
         }
 
         private bool IsOnline()
@@ -92,52 +83,11 @@ namespace absurdjoy
             return realtimeView != null && realtimeView.realtime != null && realtimeView.realtime.connected;
         }
         
-        // Recreate hand structure to replicate Oculus
-        // This orders all the bones within the list, setting the finger tips last.
-        public void Initialize()
-        {
-            allBones.Clear();
-            var listOfChildren = AddRecursiveChildren(boneRoot.transform);
-
-            // We need bones to be in the same order as oculus
-            // So we add all the bones and keep a reference to 5 finger tips. (OVRSkeleton sets these bone id's last)
-            // We then add finger tips back to bones so they are last.
-            List<Transform> fingerTips = new List<Transform>();
-            foreach (var bone in listOfChildren)
-            {
-                if (bone.name.Contains("Tip"))
-                {
-                    fingerTips.Add(bone); //Keep reference to finger tips
-                }
-                else
-                {
-                    allBones.Add(bone);
-                }
-            }
-
-            //And finger tips back to bones
-            foreach (var bone in fingerTips)
-            {
-                allBones.Add(bone);
-            }
-
-            //Initialize the skinnedMeshRender and assign the bones.
-            skinnedMeshRenderer.enabled = true;
-            skinnedMeshRenderer.bones = allBones.ToArray();
-
-            isInitialized = true;
-        }        
-
         private void Update()
         {
             if (!IsOnline())
             {
                 return;
-            }
-
-            if (!isInitialized)
-            {
-                Initialize();
             }
 
             if (realtimeView.isOwnedLocallyInHierarchy)
@@ -228,37 +178,6 @@ namespace absurdjoy
                     float.Parse(incomingDataArray[startIndex + 1 + tmpBoneCount], CultureInfo.InvariantCulture), 
                     float.Parse(incomingDataArray[startIndex + 2 + tmpBoneCount], CultureInfo.InvariantCulture));
             }
-        }
-
-        private List<Transform> AddRecursiveChildren(Transform obj, List<Transform> set = null)
-        {
-            if (set == null)
-            {
-                set = new List<Transform>();
-            }
-
-            if (obj == null)
-            {
-                return set;
-            }
-
-            for (int i = 0; i < obj.childCount; i++)
-            {
-                var child = obj.GetChild(i);
-                if (child == null)
-                {
-                    continue;
-                }
-
-                if (child != obj)
-                {
-                    set.Add(child);
-                }
-
-                AddRecursiveChildren(child, set);
-            }
-
-            return set;
         }
     }
 }
