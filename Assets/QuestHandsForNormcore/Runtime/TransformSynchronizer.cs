@@ -1,5 +1,4 @@
-﻿using Normal.Realtime; 
-using UnityEngine; 
+﻿using UnityEngine; 
  
 namespace absurdjoy 
 { 
@@ -7,13 +6,9 @@ namespace absurdjoy
 	{ 
 		private Transform source; 
  
-		public void AssignSourceTransform(Transform source, bool requestOwnershipOfReatimeTransform) 
+		public void AssignSourceTransform(Transform source) 
 		{ 
 			this.source = source; 
-			if (requestOwnershipOfReatimeTransform) 
-			{ 
-				GetComponent<RealtimeTransform>().RequestOwnership(); 
-			} 
 		} 
  
 		protected void Update() 

@@ -17,9 +17,9 @@ namespace absurdjoy
             // RealtimeTransform requires explicit ownership to update the position.
             RequestOwnershipRecursive(transform);
 
-            head.AssignSourceTransform(localHead, true);
-            leftHand.AssignSourceTransform(localLeftHand, true);
-            rightHand.AssignSourceTransform(localRightHand, true);
+            head.AssignSourceTransform(localHead);
+            leftHand.AssignSourceTransform(localLeftHand);
+            rightHand.AssignSourceTransform(localRightHand);
 
             foreach (var assignable in leftHand.GetComponents<IAssignSkeleton>())
             {

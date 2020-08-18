@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace absurdjoy
@@ -16,7 +16,7 @@ namespace absurdjoy
                 {
                     if (bone.Transform.name == transformSync.transform.name)
                     {
-                        transformSync.AssignSourceTransform(bone.Transform, true);
+                        transformSync.AssignSourceTransform(bone.Transform);
                         bones.Add(transformSync.transform);
                         success = true;
                         break;
