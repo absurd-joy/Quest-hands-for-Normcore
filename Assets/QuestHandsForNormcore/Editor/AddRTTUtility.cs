@@ -13,9 +13,9 @@ namespace absurdjoy
         public static bool trackScale = false;
         public static bool trackVelocity = false;
         public static bool interpolate = true;
-        
-        
 
+        public static bool addTransformSynchronizer = true; 
+        
         [MenuItem("GameObject/absurd:joy/Remove RealtimeView and RealtimeTransform from all children", false, 0)]
         public static void RemoveRTTComponentsFromSelection()
         {
@@ -71,6 +71,14 @@ namespace absurdjoy
             if (go.GetComponent<RealtimeTransform>() == null)
             {
                 Undo.AddComponent<RealtimeTransform>(go);
+            }
+
+            if (addTransformSynchronizer)
+            {
+                if (go.GetComponent<TransformSynchronizer>() == null)
+                {
+                    Undo.AddComponent<TransformSynchronizer>(go);
+                }
             }
 
             Undo.RecordObject(go, "Change RealtimeTransform settings");
