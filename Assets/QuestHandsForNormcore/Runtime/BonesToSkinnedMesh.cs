@@ -7,13 +7,14 @@ namespace absurdjoy
     {
         public Transform boneRoot;
         
-        [Tooltip("This is required for Oculus' implementation of the CustomSkeleton, but not the default Skeleton.")]
-        public bool putTipsAtEnd = false;
-
         // Recreate hand structure to replicate Oculus
         // This orders all the bones within the list, setting the finger tips last.
         public void OnEnable()
         {
+            SetupSkinnedMesh();
+        }
+
+        private void SetupSkinnedMesh() {
             var listOfChildren = AddRecursiveChildren(boneRoot);
             List<Transform> allBones = new List<Transform>();
             
@@ -23,7 +24,7 @@ namespace absurdjoy
             List<Transform> fingerTips = new List<Transform>();
             foreach (var bone in listOfChildren)
             {
-                if (putTipsAtEnd && bone.name.Contains("Tip"))
+                if (bone.name.Contains("Tip"))
                 {
                     fingerTips.Add(bone); //Keep reference to finger tips
                 }
@@ -33,19 +34,15 @@ namespace absurdjoy
                 }
             }
 
-            if (putTipsAtEnd)
+            // Add finger tips back to bones
+            foreach (var bone in fingerTips)
             {
-                //And finger tips back to bones
-                foreach (var bone in fingerTips)
-                {
-                    allBones.Add(bone);
-                }
+                allBones.Add(bone);
             }
 
-            //Initialize the skinnedMeshRender and assign the bones.
             var skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
-            skinnedMeshRenderer.enabled = true;
             skinnedMeshRenderer.bones = allBones.ToArray();
+            skinnedMeshRenderer.enabled = true;
         }
         
         private List<Transform> AddRecursiveChildren(Transform obj, List<Transform> set = null)

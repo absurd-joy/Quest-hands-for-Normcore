@@ -363,6 +363,11 @@ PrefabInstance:
       propertyPath: _components.Array.data[1].component
       value: 
       objectReference: {fileID: 7823796627771526076}
+    - target: {fileID: 4685534378936381709, guid: 8e0dfd5744837f9419725303c8811742,
+        type: 3}
+      propertyPath: putTipsAtEnd
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7534529145700260140, guid: 8e0dfd5744837f9419725303c8811742,
         type: 3}
       propertyPath: m_RootBone
