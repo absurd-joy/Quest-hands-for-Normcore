@@ -659,8 +659,6 @@ GameObject:
   - component: {fileID: 5462852769926206667}
   - component: {fileID: 6237040698163708343}
   - component: {fileID: 5578219180641780044}
-  - component: {fileID: 3861851346252125630}
-  - component: {fileID: 816654722763315465}
   - component: {fileID: 988772834640163994}
   m_Layer: 0
   m_Name: LeftHand
@@ -783,38 +781,9 @@ MonoBehaviour:
   _sceneViewDestroyWhenOwnerOrLastClientLeaves: 1
   _isRootPrefabView: 1
   _components:
-  - componentID: 1
-    component: {fileID: 3861851346252125630}
   - componentID: 2
     component: {fileID: 988772834640163994}
   _childViews: []
---- !u!114 &3861851346252125630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3059820154348770304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4456edc71a7aff846b08afe773003294, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &816654722763315465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3059820154348770304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52948447fca9bd045b0e5865b1282811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeleton_updateRootPose: 0
-  skeleton_updateRootScale: 0
-  boneRoot: {fileID: 8114452711906212302}
 --- !u!114 &988772834640163994
 MonoBehaviour:
   m_ObjectHideFlags: 0

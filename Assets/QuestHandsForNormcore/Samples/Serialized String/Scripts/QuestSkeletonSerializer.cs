@@ -13,7 +13,7 @@ using static OVRSkeleton;
 
 namespace absurdjoy
 {
-    public class QuestSkeletonSerializer : MonoBehaviour
+    public class QuestSkeletonSerializer : RealtimeComponent<GenericStringModel>
     {
         // TODO: Implement this.
         // [Tooltip("If true, will disable the visualization of your local hand once the networked hand is in place.")]
@@ -23,7 +23,6 @@ namespace absurdjoy
         public Transform boneRoot;
 
         private RealtimeView realtimeView;
-        private HandPoseSync handPoseSync;
         private SkinnedMeshRenderer skinnedMeshRenderer;
         private List<Transform> allBones = new List<Transform>();
 
@@ -37,10 +36,43 @@ namespace absurdjoy
 
         private bool isInitialized = false;
 
+        protected override void OnRealtimeModelReplaced(GenericStringModel previousModel, GenericStringModel currentModel)
+        {
+            base.OnRealtimeModelReplaced(previousModel, currentModel);
+            if (previousModel != null)
+            {
+                previousModel.stringValueDidChange -= ReceivedData;
+            }
+
+            if (currentModel != null)
+            {
+                if (!currentModel.isFreshModel)
+                {
+                    ReceivedData(currentModel, model.stringValue);
+                }
+
+                currentModel.stringValueDidChange += ReceivedData;
+            }
+        }
+
+        private void ReceivedData(GenericStringModel model, string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
+            DeserializeSkeletalData(value);
+        }
+
+        public void SendData(string data)
+        {
+            model.stringValue = data;
+        }        
+        
         private void OnEnable()
         {
             realtimeView = GetComponent<RealtimeView>();
-            handPoseSync = GetComponent<HandPoseSync>();
             skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
             
             stringBuilder = new StringBuilder();
@@ -115,7 +147,7 @@ namespace absurdjoy
             if (realtimeView.isOwnedLocallyInHierarchy)
             {
                 LocalUpdate();
-                // RemoteUpdate is called by changes to the model; see HandPoseSync.cs
+                // RemoteUpdate is called by changes to the model
             }
         }
         
@@ -124,7 +156,7 @@ namespace absurdjoy
         /// </summary>
         private void LocalUpdate()
         {
-            handPoseSync.SendData( SerializeSkeletalData() );
+            SendData( SerializeSkeletalData() );
         }
 
         private string SerializeSkeletalData()
@@ -165,7 +197,7 @@ namespace absurdjoy
         }
         
         /// <summary>
-        /// Called from HandPoseSync when new network data arrives.
+        /// Called when new network data arrives.
         /// </summary>
         public void DeserializeSkeletalData(string netHandData)
         {
