@@ -13,7 +13,7 @@ using static OVRSkeleton;
 
 namespace absurdjoy
 {
-    public class QuestSkeletonSerializer : RealtimeComponent<GenericStringModel>
+    public class QuestSkeletonSerializer : RealtimeComponent<GenericStringModel>, IAssignSkeleton
     {
         // TODO: Implement this.
         // [Tooltip("If true, will disable the visualization of your local hand once the networked hand is in place.")]
@@ -22,7 +22,6 @@ namespace absurdjoy
         [Tooltip("The root bone structure within this prefab.")]
         public Transform boneRoot;
 
-        private RealtimeView realtimeView;
         private SkinnedMeshRenderer skinnedMeshRenderer;
         private List<Transform> allBones = new List<Transform>();
 
@@ -72,7 +71,6 @@ namespace absurdjoy
         
         private void OnEnable()
         {
-            realtimeView = GetComponent<RealtimeView>();
             skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
             
             stringBuilder = new StringBuilder();

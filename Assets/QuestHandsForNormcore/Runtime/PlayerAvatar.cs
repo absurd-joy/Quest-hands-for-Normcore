@@ -5,20 +5,9 @@ namespace absurdjoy
 {
     public class PlayerAvatar : MonoBehaviour
     {
-        public RealtimeTransform head;
-        public QuestSkeletonSerializer leftHand;
-        public QuestSkeletonSerializer rightHand;
-
-        private Transform localHead;
-        private Transform localLeftHand;
-        private Transform localRightHand;
-
-        private RealtimeView realtimeView;
-        
-        private void OnEnable()
-        {
-            realtimeView = GetComponent<RealtimeView>();
-        }
+        public TransformSynchronizer head;
+        public TransformSynchronizer leftHand;
+        public TransformSynchronizer rightHand;
         
         /// <summary>
         /// Called by the spawning computer (for the local avatar only). This is not called for remote avatars.
@@ -26,34 +15,28 @@ namespace absurdjoy
         public void LinkWithLocal(Transform localHead, OVRCustomSkeleton localLeftSkeleton, OVRCustomSkeleton localRightSkeleton)
         {
             // RealtimeTransform requires explicit ownership to update the position.
-            head.RequestOwnership();
-            leftHand.GetComponent<RealtimeTransform>().RequestOwnership();
-            rightHand.GetComponent<RealtimeTransform>().RequestOwnership();
-            
-            this.localHead = localHead;
-            this.localLeftHand = localLeftSkeleton.transform.parent;
-            this.localRightHand = localRightSkeleton.transform.parent;
-            
-            leftHand.AssignLocalSkeleton(localLeftSkeleton);
-            rightHand.AssignLocalSkeleton(localRightSkeleton);
+            RequestOwnershipRecursive(transform);
+
+            head.AssignSourceTransform(localHead, true);
+            leftHand.AssignSourceTransform(localLeftSkeleton.transform.parent, true);
+            rightHand.AssignSourceTransform(localRightSkeleton.transform.parent, true);
+
+            leftHand.GetComponent<IAssignSkeleton>().AssignLocalSkeleton(localLeftSkeleton);
+            rightHand.GetComponent<IAssignSkeleton>().AssignLocalSkeleton(localRightSkeleton);
         }
 
-        private void Update()
+        private void RequestOwnershipRecursive(Transform target)
         {
-            if (realtimeView.isOwnedLocallySelf)
+            var rtt = GetComponent<RealtimeTransform>();
+            if (rtt != null)
             {
-                // We need to manually set our avatar positions to match head/hand positions for the local stuff:
-                MatchTransform(localHead, head.transform);
-                MatchTransform(localLeftHand, leftHand.transform);
-                MatchTransform(localRightHand, rightHand.transform);
+                rtt.RequestOwnership();
             }
-        }
-
-        private void MatchTransform(Transform source, Transform target)
-        {
-            target.localPosition = source.localPosition;
-            target.localRotation = source.localRotation;
-            target.localScale = source.localScale;
+            
+            for (int i = 0; i < target.childCount; i++)
+            {
+                RequestOwnershipRecursive(target.GetChild(i));
+            }
         }
     }
 }
