@@ -12,22 +12,8 @@ namespace absurdjoy
         public static bool trackScale = false;
         public static bool trackVelocity = false;
         public static bool interpolate = true;
-
-        public static bool addTransformSynchronizer = true; 
         
-        [MenuItem("GameObject/absurd:joy/Remove RealtimeView and RealtimeTransform from all children", false, 0)]
-        public static void RemoveRTTComponentsFromSelection()
-        {
-            Undo.IncrementCurrentGroup();
-            var undoIndex = Undo.GetCurrentGroup();
-            foreach (var selection in Selection.transforms)
-            {
-                RemoveRTTComponentsRecursively(selection);
-            }
-            Undo.CollapseUndoOperations(undoIndex);
-        }
-
-        [MenuItem("GameObject/absurd:joy/Add RealtimeTransform to all children", false, 0)]
+        [MenuItem("GameObject/absurd:joy/Realtime/Add RealtimeTransform and RealtimeView to all children", false, 0)]
         public static void AddRTTComponentsToSelection()
         {
             Undo.IncrementCurrentGroup();
@@ -39,6 +25,18 @@ namespace absurdjoy
             Undo.CollapseUndoOperations(undoIndex);
         }
 
+        [MenuItem("GameObject/absurd:joy/Realtime/Remove RealtimeView and RealtimeTransform from all children", false, 0)]
+        public static void RemoveRTTComponentsFromSelection()
+        {
+            Undo.IncrementCurrentGroup();
+            var undoIndex = Undo.GetCurrentGroup();
+            foreach (var selection in Selection.transforms)
+            {
+                RemoveRTTComponentsRecursively(selection);
+            }
+            Undo.CollapseUndoOperations(undoIndex);
+        }
+        
         public static void RemoveRTTComponentsRecursively(Transform to)
         {
             var go = to.gameObject;
@@ -70,14 +68,6 @@ namespace absurdjoy
             if (go.GetComponent<RealtimeTransform>() == null)
             {
                 Undo.AddComponent<RealtimeTransform>(go);
-            }
-
-            if (addTransformSynchronizer)
-            {
-                if (go.GetComponent<TransformSynchronizer>() == null)
-                {
-                    Undo.AddComponent<TransformSynchronizer>(go);
-                }
             }
 
             Undo.RecordObject(go, "Change RealtimeTransform settings");
