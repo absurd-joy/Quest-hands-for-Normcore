@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288197830492223035}
-  m_Mesh: {fileID: 4300000, guid: 88e2e1bfe11ec6c438b0ade27eaeded1, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!137 &7534529145700260140
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +90,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: 88e2e1bfe11ec6c438b0ade27eaeded1, type: 3}
+  m_Mesh: {fileID: 0}
   m_Bones:
   - {fileID: 4678678644040248062}
   - {fileID: 1868653537658535396}
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boneRoot: {fileID: 8349001679319271555}
+  meshType: 1
 --- !u!114 &2663036871294357013
 MonoBehaviour:
   m_ObjectHideFlags: 0
