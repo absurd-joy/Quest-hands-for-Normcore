@@ -6,6 +6,9 @@ namespace absurdjoy
     public class BonesToSkinnedMesh : MonoBehaviour
     {
         public Transform boneRoot;
+        
+        [Tooltip("This is required for Oculus' implementation of the CustomSkeleton, but not the default Skeleton.")]
+        public bool putTipsAtEnd = false;
 
         // Recreate hand structure to replicate Oculus
         // This orders all the bones within the list, setting the finger tips last.
@@ -20,7 +23,7 @@ namespace absurdjoy
             List<Transform> fingerTips = new List<Transform>();
             foreach (var bone in listOfChildren)
             {
-                if (bone.name.Contains("Tip"))
+                if (putTipsAtEnd && bone.name.Contains("Tip"))
                 {
                     fingerTips.Add(bone); //Keep reference to finger tips
                 }
@@ -30,10 +33,13 @@ namespace absurdjoy
                 }
             }
 
-            //And finger tips back to bones
-            foreach (var bone in fingerTips)
+            if (putTipsAtEnd)
             {
-                allBones.Add(bone);
+                //And finger tips back to bones
+                foreach (var bone in fingerTips)
+                {
+                    allBones.Add(bone);
+                }
             }
 
             //Initialize the skinnedMeshRender and assign the bones.

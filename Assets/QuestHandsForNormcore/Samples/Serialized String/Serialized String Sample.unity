@@ -222,7 +222,7 @@ PrefabInstance:
     - target: {fileID: 7065640071505778842, guid: 7956ca551f3f23c4694ac4b4b5029b59,
         type: 3}
       propertyPath: _roomToJoinOnStart
-      value: SerializedString Example
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7065640071505778844, guid: 7956ca551f3f23c4694ac4b4b5029b59,
         type: 3}
@@ -233,6 +233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7416204600998815387, guid: 7956ca551f3f23c4694ac4b4b5029b59,
+        type: 3}
+      propertyPath: roomName
+      value: SerializedString Example
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7956ca551f3f23c4694ac4b4b5029b59, type: 3}
