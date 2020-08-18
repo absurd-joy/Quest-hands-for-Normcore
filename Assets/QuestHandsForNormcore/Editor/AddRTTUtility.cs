@@ -13,6 +13,20 @@ namespace absurdjoy
         public static bool trackScale = false;
         public static bool trackVelocity = false;
         public static bool interpolate = true;
+        
+        
+
+        [MenuItem("GameObject/absurd:joy/Remove RealtimeView and RealtimeTransform from all children", false, 0)]
+        public static void RemoveRTTComponentsFromSelection()
+        {
+            Undo.IncrementCurrentGroup();
+            var undoIndex = Undo.GetCurrentGroup();
+            foreach (var selection in Selection.transforms)
+            {
+                RemoveRTTComponentsRecursively(selection);
+            }
+            Undo.CollapseUndoOperations(undoIndex);
+        }
 
         [MenuItem("GameObject/absurd:joy/Add RealtimeTransform to all children", false, 0)]
         public static void AddRTTComponentsToSelection()
@@ -24,6 +38,26 @@ namespace absurdjoy
                 AddRTTComponentsRecursively(selection);
             }
             Undo.CollapseUndoOperations(undoIndex);
+        }
+
+        public static void RemoveRTTComponentsRecursively(Transform to)
+        {
+            var go = to.gameObject;
+            if (go.GetComponent<RealtimeView>() != null)
+            {
+                Undo.DestroyObjectImmediate(go.GetComponent<RealtimeView>());
+            }
+            if (go.GetComponent<RealtimeTransform>() != null)
+            {
+                Undo.DestroyObjectImmediate(go.GetComponent<RealtimeTransform>());
+            }
+            
+            EditorUtility.SetDirty(to);
+            
+            for (int i = 0; i < to.childCount; i++)
+            {
+                RemoveRTTComponentsRecursively(to.GetChild(i));
+            }            
         }
 
         public static void AddRTTComponentsRecursively(Transform to)
