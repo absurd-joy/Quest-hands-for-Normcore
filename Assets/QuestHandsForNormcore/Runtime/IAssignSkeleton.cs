@@ -2,6 +2,6 @@
 {
     public interface IAssignSkeleton
     {
-        void AssignLocalSkeleton(OVRCustomSkeleton skeleton);
+        void AssignLocalSkeleton(OVRSkeleton.IOVRSkeletonDataProvider ovrSkeletonDataProvider);
     }
 }

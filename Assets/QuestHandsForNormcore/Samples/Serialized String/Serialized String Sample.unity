@@ -154,6 +154,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6199558562053610138, guid: 7956ca551f3f23c4694ac4b4b5029b59,
+        type: 3}
+      propertyPath: localLeftHandReference
+      value: 
+      objectReference: {fileID: 1239677855}
+    - target: {fileID: 6199558562053610138, guid: 7956ca551f3f23c4694ac4b4b5029b59,
+        type: 3}
+      propertyPath: localRightHandReference
+      value: 
+      objectReference: {fileID: 1239677854}
     - target: {fileID: 7065640071505778841, guid: 7956ca551f3f23c4694ac4b4b5029b59,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -212,7 +222,7 @@ PrefabInstance:
     - target: {fileID: 7065640071505778842, guid: 7956ca551f3f23c4694ac4b4b5029b59,
         type: 3}
       propertyPath: _roomToJoinOnStart
-      value: Test Room3
+      value: SerializedString Example
       objectReference: {fileID: 0}
     - target: {fileID: 7065640071505778844, guid: 7956ca551f3f23c4694ac4b4b5029b59,
         type: 3}

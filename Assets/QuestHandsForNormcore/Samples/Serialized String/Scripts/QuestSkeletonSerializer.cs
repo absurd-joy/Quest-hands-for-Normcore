@@ -25,7 +25,6 @@ namespace absurdjoy
         private SkinnedMeshRenderer skinnedMeshRenderer;
         private List<Transform> allBones = new List<Transform>();
 
-        private OVRCustomSkeleton ovrSkeleton;
         private IOVRSkeletonDataProvider ovrSkeletonDataProvider;
 
         // outgoing data cache
@@ -83,10 +82,9 @@ namespace absurdjoy
         /// <summary>
         /// (only called on locally controlled avatars) Assign a skeleton to this script to harvest data from.  
         /// </summary>
-        public void AssignLocalSkeleton(OVRCustomSkeleton skeleton)
+        public void AssignLocalSkeleton(IOVRSkeletonDataProvider ovrSkeletonDataProvider)
         {
-            ovrSkeleton = skeleton;
-            ovrSkeletonDataProvider = ovrSkeleton.GetComponent<IOVRSkeletonDataProvider>();
+            this.ovrSkeletonDataProvider = ovrSkeletonDataProvider;
         }
 
         private bool IsOnline()
